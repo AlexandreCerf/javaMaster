@@ -18,3 +18,21 @@ INSERT INTO recipe_tags (recipe_id, tags_id) VALUES
         (2, 1),
         (3, 2),
         (3, 3);
+
+INSERT INTO question (content, asked_at, author_id) VALUES
+        ('je veux un dessert', '2026-03-15 12:00:00', 2),
+        ('quelque chose du sud sans arachide', '2026-03-16 13:30:00', 2),
+        ('un petit dej rapide', '2026-03-17 08:15:00', 3);
+
+INSERT INTO question_included_tags (question_id, included_tags_id) VALUES
+        (1, 2),
+        (2, 1);
+
+INSERT INTO question_excluded_tags (question_id, excluded_tags_id) VALUES
+        (2, 3);
+
+INSERT INTO question_returned_recipes (question_id, returned_recipes_id) VALUES
+        (1, 1),
+        (1, 3),
+        (2, 2),
+        (3, 3);

@@ -1,5 +1,6 @@
 package edu.ban7.chatbotmsnmsii2527.controller;
 
+import edu.ban7.chatbotmsnmsii2527.dao.QuestionDao;
 import edu.ban7.chatbotmsnmsii2527.dao.RecipeDao;
 import edu.ban7.chatbotmsnmsii2527.model.Recipe;
 import edu.ban7.chatbotmsnmsii2527.security.IsAdmin;
@@ -18,10 +19,20 @@ import java.util.Optional;
 public class RecipeController {
 
     protected final RecipeDao recipeDao;
+    protected final QuestionDao questionDao;
+
+    public record RecipeStat(String name, Long count) {}
 
     @GetMapping("/recipe/list")
     public List<Recipe> getAll() {
         return recipeDao.findAll();
+    }
+
+    @GetMapping("/recipe/stats")
+    public List<RecipeStat> getStats() {
+        return questionDao.countReturnedRecipes().stream()
+                .map(row -> new RecipeStat((String) row[0], (Long) row[1]))
+                .toList();
     }
 
     @GetMapping("/recipe/{id}")
@@ -76,6 +87,5 @@ public class RecipeController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 }
